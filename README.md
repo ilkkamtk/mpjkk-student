@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [from here](http://users.metropolia.fi/~ilkkamtk/build/) to view it in the browser.
+Open [from here](http://users.metropolia.fi/~ilkkamtk/build2/) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
