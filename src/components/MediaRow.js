@@ -14,7 +14,12 @@ const MediaRow = ({file}) => {
       </td>
       <td>
         <Link
-          to={{pathname: '/single/' + file.file_id, state: file}}
+          to={
+            {
+              pathname: '/single',
+              state: file,
+            }
+          }
         >View</Link>
       </td>
     </tr>
