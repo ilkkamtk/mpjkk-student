@@ -16,11 +16,10 @@ const MediaRow = ({file}) => {
         <Link
           to={
             {
-              pathname: '/single',
+              pathname: '/single/',
               state: file,
             }
-          }
-        >View</Link>
+          }>View</Link>
       </td>
     </tr>
   );
