@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
+import {useParams} from 'react-router-dom';
 
-const Single = ({match}) => {
-  console.log('match', match);
+const Single = () => {
+  console.log('match', useParams());
+  const {id} = useParams();
   const file = {}; // TODO: fetch single media based on id from path parameter
 
   return (
@@ -11,10 +12,6 @@ const Single = ({match}) => {
       <img src={uploadsUrl + file.filename} alt={file.title}/>
     </>
   );
-};
-
-Single.propTypes = {
-  match: PropTypes.object,
 };
 
 export default Single;
