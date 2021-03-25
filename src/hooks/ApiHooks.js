@@ -60,4 +60,24 @@ const useUsers = () => {
   return {register};
 };
 
-export {useAllMedia, useUsers};
+const useLogin = () => {
+  const postLogin = async (inputs) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
+    };
+    try {
+      const response = await doFetch(baseUrl + 'login', fetchOptions);
+      console.log(response);
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+
+  return {postLogin};
+};
+
+export {useAllMedia, useUsers, useLogin};
