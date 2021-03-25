@@ -2,11 +2,19 @@ import useSignUpForm from '../hooks/RegisterHooks';
 import {useUsers} from '../hooks/ApiHooks';
 
 const RegisterForm = () => {
-  const {register} = useUsers();
+  const {register, getUserAvailable} = useUsers();
 
-  const doRegister = () => {
-    console.log('rekisteröinti lomake lähtee');
-    register(inputs);
+  const doRegister = async () => {
+    try {
+      console.log('rekisteröinti lomake lähtee');
+      const available = await getUserAvailable(inputs.username);
+      console.log('availabale', available);
+      if (available) {
+        register(inputs);
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   const {inputs, handleInputChange, handleSubmit} = useSignUpForm(doRegister);

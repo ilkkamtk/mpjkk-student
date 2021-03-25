@@ -1,11 +1,20 @@
 import useLoginForm from '../hooks/LoginHooks';
 import {useLogin} from '../hooks/ApiHooks';
+import PropTypes from 'prop-types';
+import MediaRow from './MediaRow';
 
-const LoginForm = () => {
+const LoginForm = ({history}) => {
   const {postLogin} = useLogin();
-  const doLogin = () => {
-    console.log('login lomake lähtee');
-    postLogin(inputs);
+
+  const doLogin = async () => {
+    try {
+      const userdata = await postLogin(inputs);
+      console.log('userdata', userdata);
+      localStorage.setItem('token', userdata.token);
+      history.push('/home');
+    } catch (e) {
+      console.log('doLogin', e.message);
+    }
   };
 
   const {inputs, handleInputChange, handleSubmit} = useLoginForm(doLogin);
@@ -29,5 +38,10 @@ const LoginForm = () => {
     </form>
   );
 };
+
+LoginForm.propTypes = {
+  history: PropTypes.object,
+};
+
 
 export default LoginForm;

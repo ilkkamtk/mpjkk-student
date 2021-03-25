@@ -57,7 +57,16 @@ const useUsers = () => {
     }
   };
 
-  return {register};
+  const getUserAvailable = async (username) => {
+    try {
+      const response = await doFetch(baseUrl + 'users/username/' + username);
+      return response.available;
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+
+  return {register, getUserAvailable};
 };
 
 const useLogin = () => {
@@ -71,7 +80,7 @@ const useLogin = () => {
     };
     try {
       const response = await doFetch(baseUrl + 'login', fetchOptions);
-      console.log(response);
+      return response;
     } catch (e) {
       alert(e.message);
     }
