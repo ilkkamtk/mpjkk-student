@@ -1,7 +1,6 @@
 import useLoginForm from '../hooks/LoginHooks';
 import {useLogin} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
-import MediaRow from './MediaRow';
 
 const LoginForm = ({history}) => {
   const {postLogin} = useLogin();
