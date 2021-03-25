@@ -11,10 +11,28 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="username" onChange={handleInputChange}/>
-      <input name="password" type="password" onChange={handleInputChange}/>
-      <input name="email" type="email" onChange={handleInputChange}/>
-      <input name="full_name" onChange={handleInputChange}/>
+      <input
+        name="username"
+        onChange={handleInputChange}
+        value={inputs.username}
+      />
+      <input
+        name="password"
+        type="password"
+        onChange={handleInputChange}
+        value={inputs.password}
+      />
+      <input
+        name="email"
+        type="email"
+        onChange={handleInputChange}
+        value={inputs.email}
+      />
+      <input
+        name="full_name"
+        onChange={handleInputChange}
+        value={inputs.full_name}
+      />
       <button>Tallenna</button>
     </form>
   );
