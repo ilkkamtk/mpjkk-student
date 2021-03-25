@@ -1,7 +1,11 @@
 import useSignUpForm from '../hooks/RegisterHooks';
 
 const RegisterForm = () => {
-  const {inputs, handleInputChange, handleSubmit} = useSignUpForm();
+  const doRegister = () => {
+    console.log('lomake lähtee');
+  };
+
+  const {inputs, handleInputChange, handleSubmit} = useSignUpForm(doRegister);
 
   console.log('RegisterForm', inputs);
 
