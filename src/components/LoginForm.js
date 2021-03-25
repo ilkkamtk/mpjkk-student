@@ -1,6 +1,7 @@
 import useLoginForm from '../hooks/LoginHooks';
 import {useLogin} from '../hooks/ApiHooks';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 
 const LoginForm = ({history}) => {
   const {postLogin} = useLogin();
@@ -43,4 +44,4 @@ LoginForm.propTypes = {
 };
 
 
-export default LoginForm;
+export default withRouter(LoginForm);
