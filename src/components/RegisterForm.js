@@ -1,13 +1,16 @@
 import useSignUpForm from '../hooks/RegisterHooks';
+import {useUsers} from '../hooks/ApiHooks';
 
 const RegisterForm = () => {
+  const {register} = useUsers();
+
   const doRegister = () => {
-    console.log('lomake lähtee');
+    console.log('rekisteröinti lomake lähtee');
+    register(inputs);
   };
 
   const {inputs, handleInputChange, handleSubmit} = useSignUpForm(doRegister);
-
-  console.log('RegisterForm', inputs);
+  // console.log('RegisterForm', inputs);
 
   return (
     <form onSubmit={handleSubmit}>

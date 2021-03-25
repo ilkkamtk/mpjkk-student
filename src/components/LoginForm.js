@@ -2,7 +2,7 @@ import useLoginForm from '../hooks/LoginHooks';
 
 const LoginForm = () => {
   const doLogin = () => {
-    console.log('lomake lähtee');
+    console.log('login lomake lähtee');
   };
 
   const {inputs, handleInputChange, handleSubmit} = useLoginForm(doLogin);
