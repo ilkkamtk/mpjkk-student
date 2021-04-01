@@ -4,8 +4,9 @@ import {Grid, Typography, Button} from '@material-ui/core';
 // import {useState} from 'react';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {useEffect} from 'react';
+import PropTypes from 'prop-types';
 
-const RegisterForm = () => {
+const RegisterForm = ({setToggle}) => {
   const {register, getUserAvailable} = useUsers();
   const validators = {
     username: ['required', 'minStringLength: 3', 'isAvailable'],
@@ -30,7 +31,12 @@ const RegisterForm = () => {
       const available = await getUserAvailable(inputs.username);
       console.log('availabale', available);
       if (available) {
-        register(inputs);
+        delete inputs.confirm;
+        const result = await register(inputs);
+        if (result.message.length > 0) {
+          alert(result.message);
+          setToggle(true);
+        }
       }
     } catch (e) {
       console.log(e.message);
@@ -60,13 +66,7 @@ const RegisterForm = () => {
     });
 
     ValidatorForm.addValidationRule('isPasswordMatch',
-        (value) => {
-          console.log('tarkistus', value, inputs.password);
-          if (value !== inputs.password) {
-            return false;
-          }
-          return true;
-        },
+        (value) => (value === inputs.password),
     );
   }, [inputs]);
 
@@ -162,6 +162,10 @@ const RegisterForm = () => {
       </Grid>
     </Grid>
   );
+};
+
+RegisterForm.propTypes = {
+  setToggle: PropTypes.func,
 };
 
 export default RegisterForm;
