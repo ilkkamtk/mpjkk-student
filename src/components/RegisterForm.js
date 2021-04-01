@@ -12,7 +12,8 @@ const RegisterForm = () => {
     password: ['required', 'minStringLength:5'],
     confirm: ['required', 'isPasswordMatch'],
     email: ['required', 'isEmail'],
-    full_name: ['matchRegexp:^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$'],
+    // eslint-disable-next-line max-len
+    full_name: ['matchRegexp:^[a-zA-ZåäöÅÄÖ]+(([\',. -][a-zA-ZåäöÅÄÖ ])?[a-zA-ZåäöÅÄÖ]*)*$'],
   };
 
   const errorMessages = {
@@ -36,6 +37,14 @@ const RegisterForm = () => {
     }
   };
 
+  const {inputs, handleInputChange, handleSubmit} = useForm(doRegister, {
+    username: '',
+    password: '',
+    confirm: '',
+    email: '',
+    full_name: '',
+  });
+
   useEffect(()=>{
     ValidatorForm.addValidationRule('isAvailable', async (value) => {
       if (value.length > 2) {
@@ -51,16 +60,17 @@ const RegisterForm = () => {
     });
 
     ValidatorForm.addValidationRule('isPasswordMatch',
-        (value) => (value === inputs.password),
+        (value) => {
+          console.log('tarkistus', value, inputs.password);
+          if (value !== inputs.password) {
+            return false;
+          }
+          return true;
+        },
     );
-  }, []);
+  }, [inputs]);
 
-  const {inputs, handleInputChange, handleSubmit} = useForm(doRegister, {
-    username: '',
-    password: '',
-    email: '',
-    full_name: '',
-  });
+
   // console.log('RegisterForm', inputs);
 
   return (
