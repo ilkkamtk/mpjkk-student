@@ -1,4 +1,4 @@
-import useSignUpForm from '../hooks/RegisterHooks';
+import useForm from '../hooks/FormHooks';
 import {useUsers} from '../hooks/ApiHooks';
 import {Grid, TextField, Typography, Button} from '@material-ui/core';
 // import {useState} from 'react';
@@ -49,7 +49,12 @@ const RegisterForm = () => {
     });
   }, []);
 
-  const {inputs, handleInputChange, handleSubmit} = useSignUpForm(doRegister);
+  const {inputs, handleInputChange, handleSubmit} = useForm(doRegister, {
+    username: '',
+    password: '',
+    email: '',
+    full_name: '',
+  });
   // console.log('RegisterForm', inputs);
 
   return (
