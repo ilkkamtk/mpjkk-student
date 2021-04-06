@@ -1,9 +1,10 @@
 import useUploadForm from '../hooks/UploadHooks';
-const doUpload = () => {
-  //
-};
 
 const Upload = () => {
+  const doUpload = () => {
+    //
+  };
+
   const {inputs, handleInputChange, handleSubmit} = useUploadForm(doUpload, {
     title: '',
     description: '',
@@ -23,6 +24,7 @@ const Upload = () => {
           onChange={handleInputChange}
         ></textarea>
         <input type="file" name="file" accept="image/*, audio/*, video/*"/>
+        <button type="submit">Lähetä</button>
       </form>
     </div>
   );
