@@ -1,12 +1,15 @@
 import useUploadForm from '../hooks/UploadHooks';
+import {useMedia} from '../hooks/ApiHooks';
 
 const Upload = () => {
-  const doUpload = () => {
+  const {postMedia} = useMedia();
+
+  const doUpload = async () => {
     const fd = new FormData();
     fd.append('title', inputs.title);
     fd.append('description', inputs.description);
     fd.append('file', inputs.file);
-    const result = postMedia();
+    const result = await postMedia(fd, localStorage.getItem('token'));
     console.log('doUpload', result);
   };
 
