@@ -1,8 +1,10 @@
 import useUploadForm from '../hooks/UploadHooks';
 import {useMedia} from '../hooks/ApiHooks';
-import {CircularProgress} from '@material-ui/core';
+import {CircularProgress, Button} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
@@ -26,6 +28,7 @@ const Upload = ({history}) => {
       title: '',
       description: '',
       file: null,
+      dataUrl: '',
     });
 
   useEffect(() => {
@@ -41,6 +44,11 @@ const Upload = ({history}) => {
     if (inputs.file !== null) {
       if (inputs.file.type.includes('image')) {
         reader.readAsDataURL(inputs.file);
+      } else {
+        setInputs((inputs) => ({
+          ...inputs,
+          dataUrl: 'logo512.png',
+        }));
       }
     }
   }, [inputs]);
@@ -50,28 +58,38 @@ const Upload = ({history}) => {
   return (
     <div>
       {!loading ?
-        <form onSubmit={handleSubmit}>
+        <ValidatorForm onSubmit={handleSubmit}>
           {inputs.dataUrl.length > 0 &&
           <img src={inputs.dataUrl}/>
           }
-          <input
+          <TextValidator
+            fullWidth
             name="title"
+            label="Title"
             value={inputs.title}
             onChange={handleInputChange}
           />
-          <textarea
+          <TextValidator
+            fullWidth
             name="description"
+            label="Description"
             value={inputs.description}
             onChange={handleInputChange}
-          ></textarea>
-          <input
+          />
+          <TextValidator
+            fullWidth
             type="file"
             name="file"
             accept="image/*, audio/*, video/*"
             onChange={handleFileChange}
           />
-          <button type="submit">Lähetä</button>
-        </form> :
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            fullWidth
+          >Lähetä</Button>
+        </ValidatorForm> :
         <CircularProgress/>
       }
     </div>
