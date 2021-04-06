@@ -1,8 +1,9 @@
 import useUploadForm from '../hooks/UploadHooks';
 import {useMedia} from '../hooks/ApiHooks';
 import {CircularProgress} from '@material-ui/core';
+import PropTypes from 'prop-types';
 
-const Upload = () => {
+const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
 
   const doUpload = async () => {
@@ -12,6 +13,7 @@ const Upload = () => {
     fd.append('file', inputs.file);
     const result = await postMedia(fd, localStorage.getItem('token'));
     console.log('doUpload', result);
+    history.push('/home');
   };
 
   const {inputs, handleInputChange, handleSubmit, handleFileChange} =
@@ -48,5 +50,10 @@ const Upload = () => {
     </div>
   );
 };
+
+Upload.propTypes = {
+  history: PropTypes.object,
+};
+
 
 export default Upload;
