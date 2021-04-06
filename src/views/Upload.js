@@ -7,13 +7,17 @@ const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
 
   const doUpload = async () => {
-    const fd = new FormData();
-    fd.append('title', inputs.title);
-    fd.append('description', inputs.description);
-    fd.append('file', inputs.file);
-    const result = await postMedia(fd, localStorage.getItem('token'));
-    console.log('doUpload', result);
-    history.push('/home');
+    try {
+      const fd = new FormData();
+      fd.append('title', inputs.title);
+      fd.append('description', inputs.description);
+      fd.append('file', inputs.file);
+      const result = await postMedia(fd, localStorage.getItem('token'));
+      console.log('doUpload', result);
+      history.push('/home');
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   const {inputs, handleInputChange, handleSubmit, handleFileChange} =
