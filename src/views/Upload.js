@@ -1,8 +1,9 @@
 import useUploadForm from '../hooks/UploadHooks';
 import {useMedia} from '../hooks/ApiHooks';
+import {CircularProgress} from '@material-ui/core';
 
 const Upload = () => {
-  const {postMedia} = useMedia();
+  const {postMedia, loading} = useMedia();
 
   const doUpload = async () => {
     const fd = new FormData();
@@ -22,25 +23,28 @@ const Upload = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="title"
-          value={inputs.title}
-          onChange={handleInputChange}
-        />
-        <textarea
-          name="description"
-          value={inputs.description}
-          onChange={handleInputChange}
-        ></textarea>
-        <input
-          type="file"
-          name="file"
-          accept="image/*, audio/*, video/*"
-          onChange={handleFileChange}
-        />
-        <button type="submit">Lähetä</button>
-      </form>
+      {!loading ?
+        <form onSubmit={handleSubmit}>
+          <input
+            name="title"
+            value={inputs.title}
+            onChange={handleInputChange}
+          />
+          <textarea
+            name="description"
+            value={inputs.description}
+            onChange={handleInputChange}
+          ></textarea>
+          <input
+            type="file"
+            name="file"
+            accept="image/*, audio/*, video/*"
+            onChange={handleFileChange}
+          />
+          <button type="submit">Lähetä</button>
+        </form> :
+        <CircularProgress/>
+      }
     </div>
   );
 };
