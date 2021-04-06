@@ -118,13 +118,11 @@ const useMedia = () => {
     };
     try {
       const response = await doFetch(baseUrl + 'media', fetchOptions);
-      if (response.message) {
-        setLoading(false);
-      }
       return response;
     } catch (e) {
-      setLoading(false);
       throw new Error('upload failed');
+    } finally {
+      setLoading(false);
     }
   };
   return {postMedia, loading};

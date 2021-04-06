@@ -2,6 +2,7 @@ import useUploadForm from '../hooks/UploadHooks';
 import {useMedia} from '../hooks/ApiHooks';
 import {CircularProgress} from '@material-ui/core';
 import PropTypes from 'prop-types';
+import {useEffect} from 'react';
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
@@ -20,17 +21,39 @@ const Upload = ({history}) => {
     }
   };
 
-  const {inputs, handleInputChange, handleSubmit, handleFileChange} =
+  const {inputs, handleInputChange, handleSubmit, handleFileChange, setInputs} =
     useUploadForm(doUpload, {
       title: '',
       description: '',
       file: null,
     });
 
+  useEffect(() => {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      setInputs((inputs) => ({
+        ...inputs,
+        dataUrl: reader.result,
+      }));
+    });
+
+    if (inputs.file !== null) {
+      if (inputs.file.type.includes('image')) {
+        reader.readAsDataURL(inputs.file);
+      }
+    }
+  }, [inputs]);
+
+  console.log(inputs);
+
   return (
     <div>
       {!loading ?
         <form onSubmit={handleSubmit}>
+          {inputs.dataUrl.length > 0 &&
+          <img src={inputs.dataUrl}/>
+          }
           <input
             name="title"
             value={inputs.title}
@@ -53,11 +76,14 @@ const Upload = ({history}) => {
       }
     </div>
   );
-};
+}
+;
 
-Upload.propTypes = {
+Upload.propTypes =
+{
   history: PropTypes.object,
-};
+}
+;
 
 
 export default Upload;
