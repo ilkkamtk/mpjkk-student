@@ -17,7 +17,7 @@ const Upload = ({history}) => {
       fd.append('file', inputs.file);
       const result = await postMedia(fd, localStorage.getItem('token'));
       console.log('doUpload', result);
-      history.push('/home');
+      history.push('/');
     } catch (e) {
       alert(e.message);
     }
