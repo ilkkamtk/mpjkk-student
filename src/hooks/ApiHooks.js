@@ -123,7 +123,8 @@ const useMedia = () => {
       }
       return response;
     } catch (e) {
-      alert(e.message);
+      setLoading(false);
+      throw new Error('upload failed');
     }
   };
   return {postMedia, loading};

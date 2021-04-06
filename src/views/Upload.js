@@ -16,7 +16,7 @@ const Upload = ({history}) => {
       console.log('doUpload', result);
       history.push('/home');
     } catch (e) {
-      console.log(e.message);
+      alert(e.message);
     }
   };
 
