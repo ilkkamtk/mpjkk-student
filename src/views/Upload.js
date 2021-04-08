@@ -42,7 +42,12 @@ const Upload = ({history}) => {
       dataUrl: '',
     });
 
-  const [sliderInputs, handleSliderChange] = useSlider({brightness: 100});
+  const [sliderInputs, handleSliderChange] = useSlider({
+    brightness: 100,
+    contrast: 100,
+    saturate: 100,
+    sepia: 0,
+  });
 
 
   useEffect(() => {
@@ -67,7 +72,7 @@ const Upload = ({history}) => {
     }
   }, [inputs.file]);
 
-  console.log(inputs);
+  console.log(inputs, sliderInputs);
 
   return (
     <Grid container>
@@ -123,16 +128,17 @@ const Upload = ({history}) => {
             </Grid>
             {inputs.dataUrl.length > 0 &&
               <>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <img
                     src={inputs.dataUrl}
                     style={{
                       filter: `
-                      brightness(100%)
-                      contrast(100%)
-                      saturate(100%)
-                      sepia(100%)
+                      brightness(${sliderInputs.brightness}%)
+                      contrast(${sliderInputs.contrast}%)
+                      saturate(${sliderInputs.saturate}%)
+                      sepia(${sliderInputs.sepia}%)
                       `,
+                      width: '100%',
                     }}
                   />
                 </Grid>
@@ -145,20 +151,45 @@ const Upload = ({history}) => {
                       step={1}
                       name="brightness"
                       value={sliderInputs?.brightness}
+                      valueLabelDisplay="on"
                       onChange={handleSliderChange}
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={12}>
                     <Typography>Contrast</Typography>
-                    <Slider />
+                    <Slider
+                      min={0}
+                      max={200}
+                      step={1}
+                      name="contrast"
+                      value={sliderInputs?.contrast}
+                      valueLabelDisplay="on"
+                      onChange={handleSliderChange}
+                    />
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={12}>
                     <Typography>Saturation</Typography>
-                    <Slider />
+                    <Slider
+                      min={0}
+                      max={200}
+                      step={1}
+                      name="saturate"
+                      value={sliderInputs?.saturate}
+                      valueLabelDisplay="on"
+                      onChange={handleSliderChange}
+                    />
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={12}>
                     <Typography>Sepia</Typography>
-                    <Slider />
+                    <Slider
+                      min={0}
+                      max={100}
+                      step={1}
+                      name="sepia"
+                      value={sliderInputs?.sepia}
+                      valueLabelDisplay="on"
+                      onChange={handleSliderChange}
+                    />
                   </Grid>
                 </Grid>
               </>
