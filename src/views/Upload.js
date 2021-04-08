@@ -11,10 +11,22 @@ import PropTypes from 'prop-types';
 import {useEffect} from 'react';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import useSlider from '../hooks/SliderHooks';
+import BackButton from '../components/BackButton';
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
   const {postTag} = useTag();
+
+  const validators = {
+    title: ['required', 'minStringLength: 3'],
+    // eslint-disable-next-line max-len
+    description: ['minStringLength: 5'],
+  };
+
+  const errorMessages = {
+    title: ['vaadittu kenttä', 'vähintään 3 merkkiä'],
+    description: ['vähintään 5 merkkiä'],
+  };
 
   const doUpload = async () => {
     try {
@@ -80,18 +92,20 @@ const Upload = ({history}) => {
   console.log(inputs, sliderInputs);
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Typography
-          component="h1"
-          variant="h2"
-          gutterBottom
-        >
+    <>
+      <BackButton />
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography
+            component="h1"
+            variant="h2"
+            gutterBottom
+          >
           Upload
-        </Typography>
-      </Grid>
-      <Grid item>
-        {!loading ?
+          </Typography>
+        </Grid>
+        <Grid item>
+          {!loading ?
         <ValidatorForm onSubmit={handleSubmit}>
           <Grid container>
             <Grid item xs={12}>
@@ -101,6 +115,8 @@ const Upload = ({history}) => {
                 label="Title"
                 value={inputs.title}
                 onChange={handleInputChange}
+                validators={validators.title}
+                errorMessages={errorMessages.title}
               />
             </Grid>
             <Grid item xs={12}>
@@ -110,6 +126,8 @@ const Upload = ({history}) => {
                 label="Description"
                 value={inputs.description}
                 onChange={handleInputChange}
+                validators={validators.description}
+                errorMessages={errorMessages.description}
               />
             </Grid>
             <Grid item xs={12}>
@@ -210,9 +228,10 @@ const Upload = ({history}) => {
           }
         </ValidatorForm> :
         <CircularProgress/>
-        }
+          }
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 
