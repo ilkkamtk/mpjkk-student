@@ -89,7 +89,7 @@ const Upload = ({history}) => {
         {!loading ?
         <ValidatorForm onSubmit={handleSubmit}>
           <Grid container>
-            <Grid container item>
+            <Grid item xs={12}>
               <TextValidator
                 fullWidth
                 name="title"
@@ -98,7 +98,7 @@ const Upload = ({history}) => {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid container item>
+            <Grid item xs={12}>
               <TextValidator
                 fullWidth
                 name="description"
@@ -107,7 +107,7 @@ const Upload = ({history}) => {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid container item>
+            <Grid item xs={12}>
               <TextValidator
                 fullWidth
                 type="file"
@@ -116,7 +116,7 @@ const Upload = ({history}) => {
                 onChange={handleFileChange}
               />
             </Grid>
-            <Grid container item>
+            <Grid item xs={12}>
               <Button
                 type="submit"
                 color="primary"
@@ -126,8 +126,13 @@ const Upload = ({history}) => {
               Lähetä
               </Button>
             </Grid>
-            {inputs.dataUrl.length > 0 &&
-              <>
+          </Grid>
+          {inputs.dataUrl.length > 0 &&
+              <Grid container
+                direction="column"
+                alignItems="center"
+                justify="center"
+              >
                 <Grid item xs={6}>
                   <img
                     src={inputs.dataUrl}
@@ -152,6 +157,7 @@ const Upload = ({history}) => {
                       name="brightness"
                       value={sliderInputs?.brightness}
                       valueLabelDisplay="on"
+                      valueLabelFormat={(value) => value + '%'}
                       onChange={handleSliderChange}
                     />
                   </Grid>
@@ -164,6 +170,7 @@ const Upload = ({history}) => {
                       name="contrast"
                       value={sliderInputs?.contrast}
                       valueLabelDisplay="on"
+                      valueLabelFormat={(value) => value + '%'}
                       onChange={handleSliderChange}
                     />
                   </Grid>
@@ -176,6 +183,7 @@ const Upload = ({history}) => {
                       name="saturate"
                       value={sliderInputs?.saturate}
                       valueLabelDisplay="on"
+                      valueLabelFormat={(value) => value + '%'}
                       onChange={handleSliderChange}
                     />
                   </Grid>
@@ -188,13 +196,13 @@ const Upload = ({history}) => {
                       name="sepia"
                       value={sliderInputs?.sepia}
                       valueLabelDisplay="on"
+                      valueLabelFormat={(value) => value + '%'}
                       onChange={handleSliderChange}
                     />
                   </Grid>
                 </Grid>
-              </>
-            }
-          </Grid>
+              </Grid>
+          }
         </ValidatorForm> :
         <CircularProgress/>
         }
