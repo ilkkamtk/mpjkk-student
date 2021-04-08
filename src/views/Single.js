@@ -31,7 +31,7 @@ const Single = ({location}) => {
     desc = JSON.parse(file.description);
     console.log(desc);
   } catch (e) {
-    desc = {};
+    desc = {description: file.description};
   }
 
   useEffect(()=>{
