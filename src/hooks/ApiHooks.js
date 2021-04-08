@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import {useEffect, useState} from 'react';
-import {baseUrl} from '../utils/variables';
+import {appIdentifier, baseUrl} from '../utils/variables';
 
 // general function for fetching (options default value is empty object)
 const doFetch = async (url, options = {}) => {
@@ -138,7 +138,7 @@ const useLogin = () => {
 };
 
 const useTag = () => {
-  const postTag = async (token, id, tag = 'öaskdug') => {
+  const postTag = async (token, id, tag = appIdentifier) => {
     const data = {
       file_id: id,
       tag,

@@ -1,5 +1,5 @@
 import useUploadForm from '../hooks/UploadHooks';
-import {useMedia} from '../hooks/ApiHooks';
+import {useMedia, useTag} from '../hooks/ApiHooks';
 import {CircularProgress, Button, Grid, Typography} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
@@ -8,6 +8,7 @@ import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
+  const {postTag} = useTag();
 
   const doUpload = async () => {
     try {
@@ -16,7 +17,11 @@ const Upload = ({history}) => {
       fd.append('description', inputs.description);
       fd.append('file', inputs.file);
       const result = await postMedia(fd, localStorage.getItem('token'));
-      console.log('doUpload', result);
+      const tagResult = await postTag(
+          localStorage.getItem('token'),
+          result.file_id,
+      );
+      console.log('doUpload', result, tagResult);
       history.push('/');
     } catch (e) {
       alert(e.message);
