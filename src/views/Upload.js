@@ -10,7 +10,7 @@ import {
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-
+import useSlider from '../hooks/SliderHooks';
 
 const Upload = ({history}) => {
   const {postMedia, loading} = useMedia();
@@ -42,6 +42,9 @@ const Upload = ({history}) => {
       dataUrl: '',
     });
 
+  const [sliderInputs, handleSliderChange] = useSlider({brightness: 100});
+
+
   useEffect(() => {
     const reader = new FileReader();
 
@@ -62,7 +65,7 @@ const Upload = ({history}) => {
         }));
       }
     }
-  }, [inputs]);
+  }, [inputs.file]);
 
   console.log(inputs);
 
@@ -134,9 +137,16 @@ const Upload = ({history}) => {
                   />
                 </Grid>
                 <Grid container>
-                  <Grid item>
+                  <Grid item xs={12}>
                     <Typography>Brightness</Typography>
-                    <Slider />
+                    <Slider
+                      min={0}
+                      max={200}
+                      step={1}
+                      name="brightness"
+                      value={sliderInputs?.brightness}
+                      onChange={handleSliderChange}
+                    />
                   </Grid>
                   <Grid item>
                     <Typography>Contrast</Typography>
