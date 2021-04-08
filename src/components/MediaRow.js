@@ -28,11 +28,11 @@ const MediaRow = ({file}) => {
         alt={file.title}
         style={{
           filter: `
-                      brightness(${desc.filters?.brightness}%)
-                      contrast(${desc.filters?.contrast}%)
-                      saturate(${desc.filters?.saturate}%)
-                      sepia(${desc.filters?.sepia}%)
-                      `,
+            brightness(${desc.filters?.brightness}%)
+            contrast(${desc.filters?.contrast}%)
+            saturate(${desc.filters?.saturate}%)
+            sepia(${desc.filters?.sepia}%)
+            `,
         }}
       />
       <GridListTileBar
@@ -51,7 +51,7 @@ const MediaRow = ({file}) => {
               }
               className={classes.icon}
             >
-              <PageviewIcon fontSize="large" />
+              <PageviewIcon fontSize="large"/>
             </IconButton>
           </>
         }
