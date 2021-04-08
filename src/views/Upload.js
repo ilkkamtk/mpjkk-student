@@ -20,7 +20,12 @@ const Upload = ({history}) => {
     try {
       const fd = new FormData();
       fd.append('title', inputs.title);
-      fd.append('description', inputs.description);
+      // kuvaus + filtterit tallennetaan description kenttään
+      const desc = {
+        description: inputs.description,
+        filters: sliderInputs,
+      };
+      fd.append('description', JSON.stringify(desc));
       fd.append('file', inputs.file);
       const result = await postMedia(fd, localStorage.getItem('token'));
       const tagResult = await postTag(
