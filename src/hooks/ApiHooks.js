@@ -26,7 +26,10 @@ const useMedia = (update = false) => {
   if (update) {
     useEffect(() => {
       try {
-        getMedia();
+        (async () => {
+          const media = await getMedia();
+          setPicArray(media);
+        })();
       } catch (e) {
         alert(e.message);
       }
@@ -36,7 +39,7 @@ const useMedia = (update = false) => {
   const getMedia = async () => {
     try {
       setLoading(true);
-      const response = await fetch(baseUrl + 'media');
+      const response = await fetch(baseUrl + 'tags/' + appIdentifier);
       const files = await response.json();
       // console.log(files);
 
@@ -44,7 +47,7 @@ const useMedia = (update = false) => {
         const resp = await fetch(baseUrl + 'media/' + item.file_id);
         return resp.json();
       }));
-      setPicArray(media);
+      return media;
     } catch (e) {
       throw new Error(e.message);
     } finally {

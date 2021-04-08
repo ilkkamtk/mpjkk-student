@@ -1,6 +1,12 @@
 import useUploadForm from '../hooks/UploadHooks';
 import {useMedia, useTag} from '../hooks/ApiHooks';
-import {CircularProgress, Button, Grid, Typography} from '@material-ui/core';
+import {
+  CircularProgress,
+  Button,
+  Grid,
+  Typography,
+  Slider,
+} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
@@ -71,11 +77,6 @@ const Upload = ({history}) => {
           Upload
         </Typography>
       </Grid>
-      {inputs.dataUrl.length > 0 &&
-        <Grid item xs={12}>
-          <img src={inputs.dataUrl}/>
-        </Grid>
-      }
       <Grid item>
         {!loading ?
         <ValidatorForm onSubmit={handleSubmit}>
@@ -117,6 +118,41 @@ const Upload = ({history}) => {
               Lähetä
               </Button>
             </Grid>
+            {inputs.dataUrl.length > 0 &&
+              <>
+                <Grid item xs={12}>
+                  <img
+                    src={inputs.dataUrl}
+                    style={{
+                      filter: `
+                      brightness(100%)
+                      contrast(100%)
+                      saturate(100%)
+                      sepia(100%)
+                      `,
+                    }}
+                  />
+                </Grid>
+                <Grid container>
+                  <Grid item>
+                    <Typography>Brightness</Typography>
+                    <Slider />
+                  </Grid>
+                  <Grid item>
+                    <Typography>Contrast</Typography>
+                    <Slider />
+                  </Grid>
+                  <Grid item>
+                    <Typography>Saturation</Typography>
+                    <Slider />
+                  </Grid>
+                  <Grid item>
+                    <Typography>Sepia</Typography>
+                    <Slider />
+                  </Grid>
+                </Grid>
+              </>
+            }
           </Grid>
         </ValidatorForm> :
         <CircularProgress/>
@@ -124,14 +160,12 @@ const Upload = ({history}) => {
       </Grid>
     </Grid>
   );
-}
-;
+};
 
 Upload.propTypes =
 {
   history: PropTypes.object,
-}
-;
+};
 
 
 export default Upload;
