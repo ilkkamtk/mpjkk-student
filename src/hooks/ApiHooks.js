@@ -23,15 +23,15 @@ const useMedia = (update = false) => {
   const [picArray, setPicArray] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (update) {
+  if (update) {
+    useEffect(() => {
       try {
         getMedia();
       } catch (e) {
         alert(e.message);
       }
-    }
-  }, []);
+    }, []);
+  }
 
   const getMedia = async () => {
     try {
@@ -135,6 +135,31 @@ const useLogin = () => {
   };
 
   return {postLogin};
+};
+
+const useTag = () => {
+  const postTag = async (token, id, tag = 'öaskdug') => {
+    const data = {
+      file_id: id,
+      tag,
+    };
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      const response = await doFetch(baseUrl + 'tags', fetchOptions);
+      return response;
+    } catch (e) {
+      throw new Error('tagging failed');
+    }
+  };
+
+  return {postTag};
 };
 
 
