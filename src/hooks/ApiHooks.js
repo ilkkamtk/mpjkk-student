@@ -163,4 +163,4 @@ const useTag = () => {
 };
 
 
-export {useMedia, useUsers, useLogin};
+export {useMedia, useUsers, useLogin, useTag};
