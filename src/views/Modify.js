@@ -14,7 +14,7 @@ import BackButton from '../components/BackButton';
 import {uploadsUrl} from '../utils/variables';
 
 const Modify = ({history, location}) => {
-  const {postMedia, loading} = useMedia();
+  const {putMedia, loading} = useMedia();
   const file = location.state;
 
   const desc = JSON.parse(file.description);
@@ -32,7 +32,15 @@ const Modify = ({history, location}) => {
 
   const doUpload = async () => {
     try {
-      const result = await postMedia(fd, localStorage.getItem('token'));
+      const data = {
+        title: inputs.title,
+        description: JSON.stringify({
+          description: inputs.description,
+          filters: sliderInputs,
+        }),
+      };
+      const result = await putMedia(data, file.file_id,
+          localStorage.getItem('token'));
       console.log('doUpload', result);
       history.push('/myfiles');
     } catch (e) {
