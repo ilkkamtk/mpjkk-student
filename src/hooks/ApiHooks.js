@@ -20,7 +20,7 @@ const doFetch = async (url, options = {}) => {
 };
 
 // set update to true, if you want to use getMedia automagically
-const useMedia = (update = false, ownFiles, userId) => {
+const useMedia = (update = false, ownFiles) => {
   const [picArray, setPicArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const [user] = useContext(MediaContext);

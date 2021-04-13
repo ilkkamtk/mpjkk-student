@@ -31,7 +31,7 @@ const MediaTable = ({ownFiles}) => {
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
 
-  const {picArray, loading} = useMedia(true, ownFiles);
+  const {picArray, loading, deleteMedia} = useMedia(true, ownFiles);
 
   console.log('MediaTable', picArray);
 
@@ -47,7 +47,11 @@ const MediaTable = ({ownFiles}) => {
         {!loading ?
           picArray.map((item) =>
             <GridListTile key={item.file_id}>
-              <MediaRow file={item} ownFiles={ownFiles}/>
+              <MediaRow
+                file={item}
+                ownFiles={ownFiles}
+                deleteMedia={deleteMedia}
+              />
             </GridListTile>) :
           <GridListTile>
             <CircularProgress />
