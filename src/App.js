@@ -17,7 +17,7 @@ const App = () => {
       <MediaProvider>
         <Container maxWidth="md">
           <Nav />
-          <main style={{marginTop: 80}}>
+          <main style={{marginTop: 80, marginBottom: 40}}>
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route path="/login" component={Login}/>

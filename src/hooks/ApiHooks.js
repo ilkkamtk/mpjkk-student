@@ -46,7 +46,7 @@ const useMedia = (update = false, ownFiles) => {
       let allFiles = await Promise.all(files.map(async (item) => {
         return await doFetch(baseUrl + 'media/' + item.file_id);
       }));
-      if (ownFiles) {
+      if (ownFiles && user !== null) {
         allFiles = allFiles.filter((item) => {
           return item.user_id === user.user_id;
         });

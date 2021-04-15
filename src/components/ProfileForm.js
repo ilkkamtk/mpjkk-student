@@ -80,8 +80,8 @@ const ProfileForm = ({user, setUser, setUpdate}) => {
       <Grid item xs={12}>
         <Typography
           component="h1"
-          variant="h2"
-          gutterBottom>Modify user</Typography>
+          variant="h4"
+          gutterBottom>Update profile</Typography>
       </Grid>
       <Grid item xs={12}>
         <ValidatorForm onSubmit={handleSubmit}>
@@ -144,7 +144,7 @@ const ProfileForm = ({user, setUser, setUpdate}) => {
                 fullWidth
                 type="file"
                 name="file"
-                accept="image/*, audio/*, video/*"
+                accept="image/*"
                 onChange={handleFileChange}
               />
             </Grid>
