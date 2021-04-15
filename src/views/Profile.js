@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
 import {
   Card,
@@ -14,9 +14,20 @@ import EmailIcon from '@material-ui/icons/Email';
 import BackButton from '../components/BackButton';
 import {Link as RouterLink} from 'react-router-dom';
 import ProfileForm from '../components/ProfileForm';
+import {useTag} from '../hooks/ApiHooks';
 
 const Profile = () => {
   const [user] = useContext(MediaContext);
+  const [avatar, setAvatar] = useState('moro');
+  const {getTag} = useTag();
+
+  useEffect(() => {
+    (async ()=>{
+      setAvatar(await getTag('avatar_'+user.user_id));
+    })();
+  }, [user]);
+
+  console.log(avatar);
 
   return (
     <>
