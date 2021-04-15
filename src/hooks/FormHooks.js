@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const useUploadForm = (callback, initState) => {
+const useForm = (callback, initState) => {
   const [inputs, setInputs] = useState(initState);
 
   const handleSubmit = (event) => {
@@ -30,4 +30,4 @@ const useUploadForm = (callback, initState) => {
   return {inputs, handleSubmit, handleInputChange, handleFileChange, setInputs};
 };
 
-export default useUploadForm;
+export default useForm;

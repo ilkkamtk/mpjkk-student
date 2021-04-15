@@ -1,14 +1,15 @@
 import {useContext, useEffect, useState} from 'react';
 import {MediaContext} from '../contexts/MediaContext';
 import {
+  Avatar,
   Card,
-  CardContent, CardMedia, Grid,
+  CardContent,
+  Grid,
   List,
-  ListItem,
+  ListItem, ListItemAvatar,
   ListItemIcon, ListItemText,
   Typography,
 } from '@material-ui/core';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import BackButton from '../components/BackButton';
@@ -48,16 +49,12 @@ const Profile = () => {
         gutterBottom>Profile</Typography>
       {user &&
         <Card>
-          <CardMedia
-            image={avatar}
-            style={{height: '20vh'}}
-          />
           <CardContent>
             <List>
               <ListItem>
-                <ListItemIcon>
-                  <AccountBoxIcon />
-                </ListItemIcon>
+                <ListItemAvatar>
+                  <Avatar variant={'square'} src={avatar} />
+                </ListItemAvatar>
                 <ListItemText primary={user.username} />
               </ListItem>
               <ListItem>

@@ -4,7 +4,7 @@ import {Grid, Typography, Button} from '@material-ui/core';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import useUploadForm from '../hooks/FormHooks';
+import useForm from '../hooks/FormHooks';
 
 const ProfileForm = ({user, setUser, setUpdate}) => {
   const {putUser, getUser} = useUsers();
@@ -51,14 +51,20 @@ const ProfileForm = ({user, setUser, setUpdate}) => {
         alert(result.message);
         const userData = await getUser(localStorage.getItem('token'));
         setUser(userData);
+        // reset form (password and confirm)
+        setInputs((inputs) => ({
+          ...inputs,
+          password: '',
+          confirm: '',
+        }));
       }
     } catch (e) {
       console.log(e.message);
     }
   };
 
-  const {inputs, handleInputChange, handleSubmit, handleFileChange} =
-    useUploadForm(doRegister, user);
+  const {inputs, setInputs, handleInputChange, handleSubmit, handleFileChange} =
+    useForm(doRegister, user);
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPasswordMatch',
@@ -81,31 +87,33 @@ const ProfileForm = ({user, setUser, setUpdate}) => {
         <ValidatorForm onSubmit={handleSubmit}>
           <Grid container>
 
-            <Grid container item>
+            <Grid item xs={12}>
               <TextValidator
                 fullWidth
                 type="password"
                 name="password"
                 label="Password"
+                value={inputs?.password}
                 onChange={handleInputChange}
                 validators={validators.password}
                 errorMessages={errorMessages.password}
               />
             </Grid>
 
-            <Grid container item>
+            <Grid item xs={12}>
               <TextValidator
                 fullWidth
                 type="password"
                 name="confirm"
                 label="Confirm password"
+                value={inputs?.confirm}
                 onChange={handleInputChange}
                 validators={validators.confirm}
                 errorMessages={errorMessages.confirm}
               />
             </Grid>
 
-            <Grid container item>
+            <Grid item xs={12}>
               <TextValidator
                 fullWidth
                 type="email"
@@ -118,7 +126,7 @@ const ProfileForm = ({user, setUser, setUpdate}) => {
               />
             </Grid>
 
-            <Grid container item>
+            <Grid item xs={12}>
               <TextValidator
                 fullWidth
                 type="text"
@@ -141,7 +149,7 @@ const ProfileForm = ({user, setUser, setUpdate}) => {
               />
             </Grid>
 
-            <Grid container item>
+            <Grid item xs={12}>
               <Button fullWidth
                 color="primary"
                 type="submit"
