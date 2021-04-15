@@ -105,7 +105,11 @@ const useMedia = (update = false, ownFiles) => {
       },
     };
     try {
-      return await doFetch(baseUrl + 'media/'+id, fetchOptions);
+      const resp = await doFetch(baseUrl + 'media/'+id, fetchOptions);
+      if (resp) {
+        const media = await getMedia();
+        setPicArray(media);
+      }
     } catch (e) {
       throw new Error('delete failed');
     } finally {
