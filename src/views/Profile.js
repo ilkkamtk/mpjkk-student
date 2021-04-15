@@ -15,15 +15,24 @@ import BackButton from '../components/BackButton';
 import {Link as RouterLink} from 'react-router-dom';
 import ProfileForm from '../components/ProfileForm';
 import {useTag} from '../hooks/ApiHooks';
+import {uploadsUrl} from '../utils/variables';
 
 const Profile = () => {
   const [user] = useContext(MediaContext);
-  const [avatar, setAvatar] = useState('moro');
+  const [avatar, setAvatar] = useState('logo512.png');
   const {getTag} = useTag();
 
   useEffect(() => {
     (async ()=>{
-      setAvatar(await getTag('avatar_'+user.user_id));
+      try {
+        const result = await getTag('avatar_'+user.user_id);
+        if (result.length > 0) {
+          const image = result.pop().filename;
+          setAvatar(uploadsUrl + image);
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
     })();
   }, [user]);
 
@@ -39,7 +48,7 @@ const Profile = () => {
       {user &&
         <Card>
           <CardMedia
-            image={'https://placekitten.com/400/300'}
+            image={avatar}
             style={{height: '20vh'}}
           />
           <CardContent>
