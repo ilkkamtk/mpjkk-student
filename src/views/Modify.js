@@ -1,4 +1,4 @@
-import useUploadForm from '../hooks/UploadHooks';
+import useUploadForm from '../hooks/FormHooks';
 import {useMedia} from '../hooks/ApiHooks';
 import {
   CircularProgress,

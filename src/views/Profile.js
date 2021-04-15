@@ -18,8 +18,9 @@ import {useTag} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/variables';
 
 const Profile = () => {
-  const [user] = useContext(MediaContext);
+  const [user, setUser] = useContext(MediaContext);
   const [avatar, setAvatar] = useState('logo512.png');
+  const [update, setUpdate] = useState(false);
   const {getTag} = useTag();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const Profile = () => {
         console.log(e.message);
       }
     })();
-  }, [user]);
+  }, [user, update]);
 
   console.log(avatar);
 
@@ -82,7 +83,7 @@ const Profile = () => {
         </Card>
       }
       <Grid>
-        <ProfileForm user={user}/>
+        <ProfileForm user={user} setUser={setUser} setUpdate={setUpdate}/>
       </Grid>
     </>
   );

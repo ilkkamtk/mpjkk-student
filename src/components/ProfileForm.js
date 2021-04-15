@@ -4,10 +4,10 @@ import {Grid, Typography, Button} from '@material-ui/core';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import useUploadForm from '../hooks/UploadHooks';
+import useUploadForm from '../hooks/FormHooks';
 
-const ProfileForm = ({user}) => {
-  const {putUser} = useUsers();
+const ProfileForm = ({user, setUser, setUpdate}) => {
+  const {putUser, getUser} = useUsers();
   const {postMedia} = useMedia();
   const {postTag} = useTag();
 
@@ -27,20 +27,30 @@ const ProfileForm = ({user}) => {
   const doRegister = async () => {
     try {
       console.log('user muokkaus lomake lähtee');
+      if (inputs.file) {
+        const fd = new FormData();
+        fd.append('title', inputs.username);
+        fd.append('file', inputs.file);
+        const fileResult = await postMedia(fd, localStorage.getItem('token'));
+        const tagResult = await postTag(
+            localStorage.getItem('token'),
+            fileResult.file_id,
+            'avatar_' + user.user_id,
+        );
+        console.log(fileResult, tagResult);
+        if (fileResult) {
+          alert(tagResult.message);
+          setUpdate(true);
+        }
+      }
       delete inputs.confirm;
+      delete inputs.file;
       const result = await putUser(inputs, localStorage.getItem('token'));
-      const fd = new FormData();
-      fd.append('title', inputs.username);
-      fd.append('file', inputs.file);
-      const fileResult = await postMedia(fd, localStorage.getItem('token'));
-      const tagResult = await postTag(
-          localStorage.getItem('token'),
-          fileResult.file_id,
-          'avatar_' + user.user_id,
-      );
-      console.log('doUpload', fileResult, tagResult);
-      if (result && fileResult && tagResult) {
+      console.log('doUpload', result);
+      if (result) {
         alert(result.message);
+        const userData = await getUser(localStorage.getItem('token'));
+        setUser(userData);
       }
     } catch (e) {
       console.log(e.message);
@@ -136,7 +146,7 @@ const ProfileForm = ({user}) => {
                 color="primary"
                 type="submit"
                 variant="contained">
-                Register
+                Update
               </Button>
             </Grid>
           </Grid>
@@ -148,6 +158,8 @@ const ProfileForm = ({user}) => {
 
 ProfileForm.propTypes = {
   user: PropTypes.object,
+  setUser: PropTypes.func,
+  setUpdate: PropTypes.func,
 };
 
 export default ProfileForm;
